@@ -1,0 +1,5 @@
+
+# local probe dumps (never commit)
+*.html
+live-chain.txt
+live-0.pem

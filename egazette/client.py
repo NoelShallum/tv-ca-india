@@ -28,47 +28,120 @@ import requests
 
 log = logging.getLogger("tvca.egazette")
 
-# Live probe 2026-09-25: https://egazette.nic.in does not resolve; https://egazette.gov.in
-# serves a leaf-only chain (CN=egazette.gov.in, issuer Let's Encrypt YR2) so default
-# verification fails with 'unable to get local issuer certificate'. Do NOT disable
-# verification to work around this; pin a verified bundle for this host instead.
-# Full form-field mapping still pending; verify against the live site before enumeration.
+# Verified 2026-09-25: https://egazette.nic.in does not resolve; use https://egazette.gov.in.
+# The server sends a leaf-only chain (CN=egazette.gov.in, issuer Let's Encrypt YR2),
+# so default verification fails with 'unable to get local issuer certificate'.
+# `openssl verify -CAfile yr-chain-bundle.pem -untrusted int-yr2.pem live-0.pem` => OK,
+# and requests with verify="egazette/certs/yr-chain-bundle.pem" => 200 (~66KB home).
+# Do NOT disable verification; always pass the pinned bundle for this host.
+# Full field map: egazette/EGAZETTE_FORM_MAP.md (directory partitions + recent-uploads
+# paging verified live; SearchGazette.aspx only via button POST, never direct GET).
+HOST = "https://egazette.gov.in"
 HOST_CANDIDATES = [
     "https://egazette.gov.in",
     "https://egazette.nic.in",
 ]
+CERT_BUNDLE = Path(__file__).with_name("certs") / "yr-chain-bundle.pem"
+
+# GazetteDirectory ddlCategory -> ddlPartSection value map (verified via
+# __EVENTTARGET=ddlCategory postback; labels in EGAZETTE_FORM_MAP.md).
+PART_SECTIONS = {
+    "Extra Ordinary": {"31": "CSL", "38": "No Part No Section", "61": "Part I", "1": "Part I-Section 1",
+        "2": "Part I-Section 2", "3": "Part I-Section 3", "4": "Part I-Section 4", "43": "Part II",
+        "62": "Part II-Section 1", "5": "Part II-Section 1", "48": "Part II-Section 1-A",
+        "6": "Part II-Section 1-A (Hindi)", "7": "Part II-Section 2", "63": "Part II-Section 2",
+        "37": "Part II-Section 3", "45": "Part II-Section 3 A", "8": "Part II-Section 3-Sub-Section (i)",
+        "9": "Part II-Section 3-Sub-Section (ii)", "10": "Part II-Section 3-Sub-Section (iii)",
+        "11": "Part II-Section 4", "64": "Part III", "12": "Part III-Section 1", "13": "Part III-Section 2",
+        "14": "Part III-Section 3", "15": "Part III-Section 4", "16": "Part IV", "65": "Part IV",
+        "41": "Part V", "66": "Part V-Section 2"},
+    "Weekly": {"30": "CSL", "39": "No Part No Section", "67": "Part I", "17": "Part I-Section 1",
+        "18": "Part I-Section 2", "19": "Part I-Section 3", "20": "Part I-Section 4", "42": "Part II",
+        "34": "Part II-A", "68": "Part II-Section 1", "36": "Part II-Section 1", "69": "Part II-Section 2",
+        "32": "Part II-Section 2", "33": "Part II-Section 3", "44": "Part II-Section 3 A",
+        "21": "Part II-Section 3-Sub-Section (i)", "22": "Part II-Section 3-Sub-Section (ii)",
+        "23": "Part II-Section 3-Sub-Section (iii)", "24": "Part II-Section 4", "35": "Part III",
+        "70": "Part III", "25": "Part III-Section 1", "26": "Part III-Section 2", "27": "Part III-Section 3",
+        "28": "Part III-Section 4", "29": "Part IV", "71": "Part IV", "40": "Part V", "72": "Part V-Section 2"},
+}
+SEARCH_MENU_BUTTONS = ["btneSearch", "btnGazetteID", "btnContentID", "btnMinistry",
+    "btnCategory", "btnBill", "btnNotification", "btnPublish"]
 
 VIEWSTATE_RE = re.compile(r'name="__VIEWSTATE"\s+value="([^"]+)"')
 EVENTVALIDATION_RE = re.compile(r'name="__EVENTVALIDATION"\s+value="([^"]+)"')
 VIEWSTATEGEN_RE = re.compile(r'name="__VIEWSTATEGENERATOR"\s+value="([^"]+)"')
 
 class EGazetteSession:
-    def __init__(self, host=None, delay_min=0.8, delay_max=1.8, timeout=45):
-        self.host = (host or HOST_CANDIDATES[0]).rstrip("/")
+    def __init__(self, host=None, delay_min=0.8, delay_max=1.8, timeout=45, verify=None):
+        self.host = (host or HOST).rstrip("/")
+        self.verify = verify or (str(CERT_BUNDLE) if CERT_BUNDLE.exists() else True)
         self.s = requests.Session()
-        self.s.headers.update({"User-Agent": "TVCA-Research/0.1 eGazette polite enumeration"})
+        self.s.headers.update({"User-Agent": "TVCA-Research/0.1 eGazette polite enumeration",
+            "Accept": "text/html,application/xhtml+xml", "Referer": "https://egazette.gov.in/"})
         self.delay_min = delay_min
         self.delay_max = delay_max
         self.timeout = timeout
+        self.base_url = self.host + "/"
 
     def _wait(self):
         time.sleep(random.uniform(self.delay_min, self.delay_max))
 
-    def get(self, path, **kw):
-        self._wait()
-        r = self.s.get(self.host + path, timeout=self.timeout, verify=True, **kw)
+    def _track_base(self, r):
+        # ASP.NET cookieless sessions embed (S(...)) in the URL; keep the latest base.
+        if r.url:
+            from urllib.parse import urljoin
+            self.base_url = urljoin(r.url, "./")
         return r
+
+    def bootstrap(self):
+        self._wait()
+        return self._track_base(self.s.get(self.host + "/", timeout=self.timeout, verify=self.verify))
+
+    def get(self, path, **kw):
+        from urllib.parse import urljoin
+        self._wait()
+        kw.setdefault("verify", self.verify)
+        return self._track_base(self.s.get(urljoin(self.base_url, path.lstrip("/")), timeout=self.timeout, **kw))
+
+    def post(self, path_or_url, data, **kw):
+        from urllib.parse import urljoin
+        self._wait()
+        kw.setdefault("verify", self.verify)
+        url = path_or_url if path_or_url.startswith("http") else urljoin(self.base_url, path_or_url.lstrip("/"))
+        return self._track_base(self.s.post(url, data=data, timeout=self.timeout, **kw))
 
     @staticmethod
     def form_state(html):
         def g(rx):
             m = rx.search(html)
             return m.group(1) if m else ""
+        def gv(name):
+            m = re.search(r'name="%s"[^>]*value="([^"]*)"' % re.escape(name), html)
+            return m.group(1) if m else ""
         return {
             "__VIEWSTATE": g(VIEWSTATE_RE),
             "__EVENTVALIDATION": g(EVENTVALIDATION_RE),
             "__VIEWSTATEGENERATOR": g(VIEWSTATEGEN_RE),
+            "__VIEWSTATEENCRYPTED": gv("__VIEWSTATEENCRYPTED"),
+            "hidden1": gv("hidden1"),
+            "__LASTFOCUS": gv("__LASTFOCUS"),
+            "__SCROLLPOSITIONX": gv("__SCROLLPOSITIONX") or "0",
+            "__SCROLLPOSITIONY": gv("__SCROLLPOSITIONY") or "0",
         }
+
+    def directory_search(self, category, part_value, year):
+        """Run one GazetteDirectory partition; returns (response, n_download_buttons)."""
+        r = self.get("GazetteDirectory.aspx")
+        st = self.form_state(r.text)
+        d1 = {**st, "__EVENTTARGET": "ddlCategory", "__EVENTARGUMENT": "",
+              "ddlCategory": category, "ddlPartSection": "Select Part & Section", "ddlYear": str(year)}
+        r1 = self.post(r.url, d1)
+        st2 = self.form_state(r1.text)
+        d2 = {**st2, "__EVENTTARGET": "", "__EVENTARGUMENT": "",
+              "ddlCategory": category, "ddlPartSection": str(part_value), "ddlYear": str(year),
+              "btnSubmit.x": "10", "btnSubmit.y": "10"}
+        r2 = self.post(r1.url, d2)
+        return r2, len(re.findall(r"imgbtndownload", r2.text))
 
     @staticmethod
     def sha256(b: bytes) -> str:
