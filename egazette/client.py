@@ -28,7 +28,11 @@ import requests
 
 log = logging.getLogger("tvca.egazette")
 
-# Update after live inspection. Known portals: https://egazette.gov.in / https://egazette.nic.in
+# Live probe 2026-09-25: https://egazette.nic.in does not resolve; https://egazette.gov.in
+# serves a leaf-only chain (CN=egazette.gov.in, issuer Let's Encrypt YR2) so default
+# verification fails with 'unable to get local issuer certificate'. Do NOT disable
+# verification to work around this; pin a verified bundle for this host instead.
+# Full form-field mapping still pending; verify against the live site before enumeration.
 HOST_CANDIDATES = [
     "https://egazette.gov.in",
     "https://egazette.nic.in",

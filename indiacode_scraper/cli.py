@@ -79,6 +79,7 @@ def main(argv=None):
     ap.add_argument("--delay-max", type=float, default=1.2)
     ap.add_argument("--limit", type=int, default=0, help="limit acts (0=all)")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--only", default="", help="comma-separated title substrings to filter acts")
     args = ap.parse_args(argv)
 
     store = Store(args.data_root)
@@ -88,12 +89,18 @@ def main(argv=None):
 
     if args.command == "pilot":
         acts = pick_pilot(rows)
+        if args.only:
+            wants = [w.strip().lower() for w in args.only.split(",") if w.strip()]
+            acts = [a for a in acts if any(w in a["title"].lower() for w in wants)]
         logging.info("pilot acts=%d", len(acts))
         for a in acts:
             logging.info("  pilot: %s %s", a["title"], a["uuid"])
         return run_acts(store, session, acts, force=args.force)
     if args.command in ("crawl-all", "resume"):
         acts = sorted(rows, key=lambda r: r["rank"])
+        if args.only:
+            wants = [w.strip().lower() for w in args.only.split(",") if w.strip()]
+            acts = [a for a in acts if any(w in a["title"].lower() for w in wants)]
         if args.limit:
             acts = acts[:args.limit]
         # resume = skip DONE (default); crawl-all with --force redoes

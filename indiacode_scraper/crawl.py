@@ -160,6 +160,7 @@ def crawl_act(session, store, inv_row):
     linked, total = ([], 0)
     if act_id:
         linked, total = discover_linked(session, store, act_id)
+    log.info("act %s linked_total=%d", inv_row.get("title", "")[:60], total)
     fetched = 0
     pdf_count = 0
     for luuid, _lname in linked:
