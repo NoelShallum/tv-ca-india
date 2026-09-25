@@ -182,3 +182,38 @@ resumable queues, HTML footnote parsing, citation offsets, section capture,
 blob integrity, and the image-skip policy. The inventory snapshot itself has
 849 unique UUIDs and a SHA-256 recorded above so that a downstream consumer
 can verify an unchanged copy.
+
+## Run book (all strategies, single-worker and resume-safe)
+
+India Code crawl (Strategy 1: sections, footnotes, rules, linked PDFs):
+
+    python3 -m indiacode_scraper.cli crawl-all --data-root runs/tvca-1
+    python3 -m indiacode_scraper.cli resume --data-root runs/tvca-1   # same thing: skips DONE
+    python3 -m indiacode_scraper.cli status --data-root runs/tvca-1
+    python3 -m indiacode_scraper.cli crawl-all --only "Contract Act" --limit 3  # bounded try
+
+Per-act output: `acts/<uuid>/{act.json,sections.jsonl,schedules.jsonl,orders_rules.jsonl,others.jsonl,footnotes.jsonl,files.manifest.json}`
+plus content-hashed blobs under `blobs/` and everything indexed in `run.sqlite3`.
+
+Timelines and coverage (reconstruction layer):
+
+    python3 -m indiacode_scraper.reconstruct --data-root runs/tvca-1 --act <uuid> --out timelines --as-of 1976-09-05
+    python3 -m indiacode_scraper.coverage --data-root runs/tvca-1 --out coverage_out
+
+eGazette enumeration (Strategies 2/3; pinned TLS bundle in `egazette/certs/`, never `verify=False`):
+
+    python3 -m egazette.enumerate --category "Extra Ordinary" --part 9 --year 2025 \
+        --out egazette_out --max-pages 1 --max-downloads 0   # records-only pilot
+
+Act-specific gazette search from Python:
+
+    from egazette.client import EGazetteSession
+    s = EGazetteSession(); s.bootstrap()
+    resp, n = s.search_bill(keyword="Commercial Courts")  # reftype 8=Act, 9=Bill, 15=Assent
+
+Politeness: one worker at a time, random 0.5-1.8 s delays between requests,
+bounded retries with backoff, error-only logging. The eGazette download chain
+resolves each row through its own POST -> ViewPDF -> iframe viewer (never
+constructed URLs, never bulk) and fetches PDF bytes with an explicit
+`Accept: application/pdf` (the file server 406s HTML-Accept clients).
+Field maps and verified examples: [`egazette/EGAZETTE_FORM_MAP.md`](egazette/EGAZETTE_FORM_MAP.md).
