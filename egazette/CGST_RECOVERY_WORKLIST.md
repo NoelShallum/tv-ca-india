@@ -12,8 +12,8 @@
 - 13 of 2021 | NOT-IN-INVENTORY | wef=['2017-07-01', '2021-08-01', '2022-01-01'] | sections=12 | SEARCHBILL
 - 6 of 2022 | NOT-IN-INVENTORY | wef=['2019-02-01', '2022-07-05', '2022-10-01'] | sections=14 | SEARCHBILL
 - 30 of 2023 | NOT-IN-INVENTORY | wef=['2023-10-01'] | sections=2 | SEARCHBILL
-- 48 of 2023 | NOT-IN-INVENTORY | wef=['2023-12-28'] | sections=1 | SEARCHBILL
-- 8 of 2023 | NOT-IN-INVENTORY | wef=['2017-07-01', '2023-08-01', '2023-10-01'] | sections=22 | SEARCHBILL
+- 48 of 2023 | RECOVERED egazette/archive/recovery/8of2023/CGST-Amendment-2023.pdf (3pp, shad6bb1672, CG-DL-E-18082023-248183) | wef=['2023-12-28'] | sections=1 | SEARCHBILL
+- 8 of 2023 | RECOVERED egazette/archive/recovery/8of2023/CGST-Amendment-2023.pdf (3pp, shad6bb1672, CG-DL-E-18082023-248183) | wef=['2017-07-01', '2023-08-01', '2023-10-01'] | sections=22 | SEARCHBILL
 - 15 of 2024 | NOT-IN-INVENTORY | wef=['2017-07-01', '2023-10-01', '2024-08-01', '2024-09-27', '2024-11-01'] | sections=35 | SEARCHBILL
 - 8 of 2024 | NOT-IN-INVENTORY | wef=['2024-10-01', '2025-04-01'] | sections=3 | SEARCHBILL
 - 7 of 2025 | NOT-IN-INVENTORY | wef=['2017-07-01', '2025-04-01'] | sections=3 | SEARCHBILL
