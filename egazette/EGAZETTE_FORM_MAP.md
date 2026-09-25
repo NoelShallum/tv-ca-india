@@ -41,3 +41,9 @@
 - URL pattern `SearchBill.aspx?id=<session-token>` (token varies; reach via SearchMenu `btnBill` POST).
 - Fields: `ddlreftype` (Select Reference Type, 8=Act, 9=Bill, 15=Assent), `txtRefNo` (Reference Number, optional), `txtKeyword` (textarea, Keywords, optional), `txtDateFrom`/`txtDateTo` (Notification issue range, optional, keypress-blocked date pickers), image buttons `ImgSubmitDetails`/`ImgResetDetails`, `btnBack`.
 - This is the act-specific gazette path (Strategy 3 amendments): query by Act reference no + keyword + date window.
+
+## Download resolution (pilot-verified 2026-09-25, single file)
+- Row download buttons do NOT return the PDF directly: POSTing `gvGazetteList$ctlNN$imgbtndownload.x/.y` returns the list page plus `window.open('ViewPDF.aspx','_blank')`.
+- Same-session `GET ViewPDF.aspx` returns viewer HTML with `<iframe id="framePDFDisplay" src="../WriteReadData/2026/276481.pdf">`.
+- Same-session `GET` of the iframe src returns `application/pdf` (pilot: 408,361 bytes, `%PDF` magic, sha256 `8d989295...`, Ministry of Petroleum and Natural Gas row).
+- Rules: resolve each row through its own POST -> ViewPDF -> iframe chain; never construct `WriteReadData/...` URLs from Gazette IDs; never reuse row 1's file for other rows; one pilot file only until partitioned enumeration with ledger.

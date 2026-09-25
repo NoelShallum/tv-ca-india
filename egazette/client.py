@@ -129,6 +129,19 @@ class EGazetteSession:
             "__SCROLLPOSITIONY": gv("__SCROLLPOSITIONY") or "0",
         }
 
+    @staticmethod
+    def resolve_viewer_pdf_url(viewpdf_html, viewpdf_url):
+        """Resolve the per-row file from viewer HTML (pilot-verified chain).
+
+        Returns the absolute PDF URL from the framePDFDisplay iframe, or "".
+        Callers must GET it in the same session; each row gets its own chain.
+        """
+        from urllib.parse import urljoin
+        m = re.search(r'<iframe[^>]*id="framePDFDisplay"[^>]*src="([^"]+)"', viewpdf_html, re.I)
+        if not m:
+            m = re.search(r'<iframe[^>]*src="([^"]+)"', viewpdf_html, re.I)
+        return urljoin(viewpdf_url, m.group(1)) if m else ""
+
     def directory_search(self, category, part_value, year):
         """Run one GazetteDirectory partition; returns (response, n_download_buttons)."""
         r = self.get("GazetteDirectory.aspx")
