@@ -11,6 +11,7 @@ Stdlib only.
 """
 import argparse
 import json
+import re
 import sqlite3
 from collections import Counter
 from pathlib import Path
@@ -33,7 +34,15 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-root", required=True)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--recovery-root", default="",
+                    help="egazette/archive/recovery dir; subdirs like 12of2020 count as sourced")
     a = ap.parse_args(argv)
+    recovered = set()
+    if a.recovery_root:
+        for d in Path(a.recovery_root).iterdir():
+            m = re.fullmatch(r"(\d+)of(\d{4})", d.name)
+            if m and (d / "meta.json").exists():
+                recovered.add(f"{int(m.group(1))} of {m.group(2)}")
     db = sqlite3.connect(str(Path(a.data_root) / "run.sqlite3"))
     db.row_factory = sqlite3.Row
     done = list(db.execute("SELECT uuid, title, act_year FROM acts WHERE status='DONE'"))
@@ -56,13 +65,15 @@ def main(argv=None):
                     cands.append({"uuid": c["uuid"], "title": c["title"], "status": c["status"],
                                   "item_pdfs": act_pdfs(db, c["uuid"])})
             hit = any(c["status"] == "DONE" for c in cands)
+            rec = (inst["cited_act"] or "") in recovered
             report["instrument_counter"][inst["cited_act"]] += 1
-            if hit:
+            if hit or rec:
                 report["sourced"] += 1
             else:
                 report["unsourced"] += 1
             entry["instruments"].append({"cited": inst["cited_act"], "wef": inst["wef"],
-                                        "candidates": cands, "archived": hit})
+                                        "candidates": cands, "archived": hit,
+                                        "recovered_egazette": rec})
         report["acts"].append(entry)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
