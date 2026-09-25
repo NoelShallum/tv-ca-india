@@ -5,7 +5,7 @@
 
 - 26 of 2017 | The Central Goods and Services Tax (Extension to Jammu and K | wef=['2017-07-08'] | sections=2 | ARCHIVED
 - 13 of 2018 | NOT-IN-INVENTORY | wef=['2019-02-01'] | sections=1 | SEARCHBILL
-- 31 of 2018 | NOT-IN-INVENTORY | wef=['2017-07-01', '2019-02-01'] | sections=26 | SEARCHBILL
+- 31 of 2018 | RECOVERED egazette/archive/recovery/31of2018/CGST-Amendment-2018.pdf (9pp, sha7372bf7a, via per-row viewer chain; portal shows legacy id 188986 only) | wef=['2017-07-01', '2019-02-01'] | sections=26 | SEARCHBILL
 - 23 of 2019 | NOT-IN-INVENTORY | wef=['2019-09-01', '2020-01-01', '2020-11-10'] | sections=21 | SEARCHBILL
 - 12 of 2020 | NOT-IN-INVENTORY | wef=['2020-05-18', '2020-06-30', '2021-01-01'] | sections=11 | SEARCHBILL
 - 38 of 2020 | NOT-IN-INVENTORY | wef=['2020-03-31'] | sections=1 | SEARCHBILL
