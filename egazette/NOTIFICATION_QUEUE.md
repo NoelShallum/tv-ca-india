@@ -1,0 +1,102 @@
+# Cross-act notification pull list
+
+- 97 distinct S.O./G.S.R. references mined from blank-cited footnote events across 95 DONE acts.
+- Recovery path: GazetteDirectory partitions by issue date, or content-ID search (untested). All PENDING.
+
+- S.O. 3912(E) | events=7 acts=5 | e.g. The Central Goods and Services Tax (Exte, The Central Goods and Services Tax Act, , The Consumer Protection Act, 2019 | PENDING
+- S.O. 3912 (E) | events=2 acts=2 | e.g. The Banning of Unregulated Deposit Schem, The Muslim Women (Protection of Rights o | PENDING
+- S.O. 1123(E) | events=3 acts=1 | e.g. The Central Goods and Services Tax Act,  | PENDING
+- S.O. 3774(E) | events=3 acts=1 | e.g. The Central Goods and Services Tax Act,  | PENDING
+- S.O. 4506(E) | events=2 acts=1 | e.g. The Mediation Act, 2023 | PENDING
+- S.O. 2351(E) | events=1 acts=1 | e.g. The Consumer Protection Act, 2019 | PENDING
+- S.O. 2421(E) | events=1 acts=1 | e.g. The Consumer Protection Act, 2019 | PENDING
+- S.O. 2352(E) | events=1 acts=1 | e.g. The Post Office Act, 2023 | PENDING
+- S.O. 4712 (E) | events=1 acts=1 | e.g. The Kerala (Alteration of Name) Act, 202 | PENDING
+- S.O. 4713 (E) | events=1 acts=1 | e.g. The Tribunals Reforms Act, 2026 | PENDING
+- S.O. 2382 (E) | events=1 acts=1 | e.g. The Viksit Bharat—Guarantee for Rozgar A | PENDING
+- S.O. 6153 (E) | events=1 acts=1 | e.g. The Health Security Se National Security | PENDING
+- S.O. 1994 (E) | events=1 acts=1 | e.g. The Promotion and Regulation of Online G | PENDING
+- S.O. 1499(E) | events=1 acts=1 | e.g. The Indian Ports Act 2025 | PENDING
+- S.O. 1244(E) | events=1 acts=1 | e.g. The Merchant Shipping Act, 2025 | PENDING
+- S.O. 6152 (E) | events=1 acts=1 | e.g. The National Sports Governance Act, 2025 | PENDING
+- S.O. 4356 (E) | events=1 acts=1 | e.g. The Readjustment of Representation of Sc | PENDING
+- S.O. 1243 (E) | events=1 acts=1 | e.g. The Coastal Shipping Act, 2025 | PENDING
+- S.O. 4083 (E) | events=1 acts=1 | e.g. The Bills of Lading Act, 2025 | PENDING
+- S.O. 1937 (E) | events=1 acts=1 | e.g. The Protection of Interests in Aircraft  | PENDING
+- S.O. 1676 (E) | events=1 acts=1 | e.g. The Mussalman Wakf (Repeal) Act, 2025 | PENDING
+- S.O. 3981 (E) | events=1 acts=1 | e.g. The Immigration and Foreigners Act, 2025 | PENDING
+- S.O. 1943 (E) | events=1 acts=1 | e.g. The Boilers Act, 2025 | PENDING
+- S.O. 1619 (E) | events=1 acts=1 | e.g. The "Tribhuvan" Sahkari University Act,  | PENDING
+- S.O. 4082 (E) | events=1 acts=1 | e.g. The Carriage of Goods by Sea Act, 2025 | PENDING
+- S.O. 5646(E) | events=1 acts=1 | e.g. The Bharatiya Vayuyan Adhiniyam, 2024 | PENDING
+- S.O. 2422(E) | events=1 acts=1 | e.g. The Public Examinations (Prevention of U | PENDING
+- S.O. 989(E) | events=1 acts=1 | e.g. The Press and Registration of Periodical | PENDING
+- S.O. 35 (E) | events=1 acts=1 | e.g. The Chief Election Commissioner And Othe | PENDING
+- S.O. 850(E) | events=1 acts=1 | e.g. The Bharatiya Nyaya Sanhita, 2023 | PENDING
+- S.O. 849(E) | events=1 acts=1 | e.g. The Bharatiya Sakshya Adhiniyam, 2023 | PENDING
+- S.O. 848(E) | events=1 acts=1 | e.g. The Bharatiya Nagarik Suraksha Sanhita,  | PENDING
+- S.O. 2623(E) | events=1 acts=1 | e.g. The Telecommunications Act, 2023. | PENDING
+- S.O. 4384(E) | events=1 acts=1 | e.g. The Mediation Act, 2023 | PENDING
+- S.O. 991(E) | events=1 acts=1 | e.g. The National Nursing and Midwifery Commi | PENDING
+- S.O. 474(E) | events=1 acts=1 | e.g. The Anusandhan National Research Foundat | PENDING
+- S.O. 990(E) | events=1 acts=1 | e.g. The National Dental Commission Act, 2023 | PENDING
+- G.S.R. 843(E) | events=1 acts=1 | e.g. The Digital Personal Data Protection Act | PENDING
+- S.O. 802(E) | events=1 acts=1 | e.g. The Maritime Anti-Piracy Act, 2022. | PENDING
+- S.O. 3898E) | events=1 acts=1 | e.g. The National Anti-Doping Act, 2022 | PENDING
+- S.O. 3509(E) | events=1 acts=1 | e.g. The Indian Antarctic Act, 2022 | PENDING
+- S.O. 3653(E) | events=1 acts=1 | e.g. The Criminal Procedure (Identification)  | PENDING
+- S.O. 292(E) | events=1 acts=1 | e.g. The Surrogacy (Regulation) Act, 2021 | PENDING
+- S.O. 291(E) | events=1 acts=1 | e.g. The Assisted Reproductive Technology (Re | PENDING
+- S.O.5422(E) | events=1 acts=1 | e.g. The Dam Safety Act, 2021 | PENDING
+- S.O. 743(E) | events=1 acts=1 | e.g. The Inland Vessels Act, 2021 | PENDING
+- S.O. 2604(E) | events=1 acts=1 | e.g. The Inland Vessels Act, 2021 | PENDING
+- S.O. 4036(E) | events=1 acts=1 | e.g. The National Institutes of Food Technolo | PENDING
+- S.O. 1657(E) | events=1 acts=1 | e.g. The National Bank for Financing Infrastr | PENDING
+- S.O. 1658(E) | events=1 acts=1 | e.g. The National Bank for Financing Infrastr | PENDING
+- S.O. 4911(E) | events=1 acts=1 | e.g. The National Bank for Financing Infrastr | PENDING
+- S.O. 2012(E) | events=1 acts=1 | e.g. The National Commission for Allied and H | PENDING
+- S.O. 4504 (E) | events=1 acts=1 | e.g. The Major Port Authorities Act, 2021 | PENDING
+- S.O. 1730(E) | events=1 acts=1 | e.g. The Code on Social Security, 2020 | PENDING
+- S.O. 2060 (E) | events=1 acts=1 | e.g. The Code on Social Security, 2020 | PENDING
+- S.O. 5319 (E) | events=1 acts=1 | e.g. The Code on Social Security, 2020 | PENDING
+- S.O. 5321 (E) | events=1 acts=1 | e.g. The Occupational Safety, Health and Work | PENDING
+- S.O. 5320(E) | events=1 acts=1 | e.g. The Industrial Relations Code, 2020 | PENDING
+- S.O. 3424(E) | events=1 acts=1 | e.g. The National Forensic Sciences Universit | PENDING
+- S.O. 3463(E) | events=1 acts=1 | e.g. The Bilateral Netting of Qualified Finan | PENDING
+- S.O. 3422(E) | events=1 acts=1 | e.g. The Rashtriya Raksha University Act, 202 | PENDING
+- S.O. 3394(E) | events=1 acts=1 | e.g. The Jammu and Kashmir Official Languages | PENDING
+- S.O. 3608(E) | events=1 acts=1 | e.g. The Institute of Teaching and Research i | PENDING
+- S.O. 3483(E) | events=1 acts=1 | e.g. The National Commission for Indian Syste | PENDING
+- S.O. 2278(E) | events=1 acts=1 | e.g. The National Commission for Indian Syste | PENDING
+- S.O. 3475(E) | events=1 acts=1 | e.g. The National Commission for Homoeopathy  | PENDING
+- S.O. 2693(E) | events=1 acts=1 | e.g. The National Commission for Homoeopathy  | PENDING
+- S.O.1202(E) | events=1 acts=1 | e.g. The Marine Aids to Navigation Act, 2021. | PENDING
+- S.O. 1263(E) | events=1 acts=1 | e.g. The Central Sanskrit Universities Act, 2 | PENDING
+- S.O. 471(E) | events=1 acts=1 | e.g. The Direct Tax Vivad se Vishwas Act, 202 | PENDING
+- S.O. 135(E) | events=1 acts=1 | e.g. The Transgender Persons (Protection of R | PENDING
+- S.O. 1384(E) | events=1 acts=1 | e.g. The International Financial Services Cen | PENDING
+- S.O. 2844(E) | events=1 acts=1 | e.g. The International Financial Services Cen | PENDING
+- S.O. 3374(E) | events=1 acts=1 | e.g. The International Financial Services Cen | PENDING
+- S.O. 3838(E) | events=1 acts=1 | e.g. The Recycling of Ships Act, 2019 | PENDING
+- S.O. 889 (E) | events=1 acts=1 | e.g. The Recycling of Ships Act, 2019 | PENDING
+- S.O. 5648(E) | events=1 acts=1 | e.g. The Recycling of Ships Act, 2019 | PENDING
+- S.O. 5942(E) | events=1 acts=1 | e.g. The Recycling of Ships Act, 2019 | PENDING
+- S.O. 4542(E) | events=1 acts=1 | e.g. The Dadra and Nagar Haveli and Daman and | PENDING
+- S.O. 4543(E) | events=1 acts=1 | e.g. The Dadra and Nagar Haveli and Daman and | PENDING
+- S.O. 2889 (E) | events=1 acts=1 | e.g. The Jammu and Kashmir Reorganisation Act | PENDING
+- S.O. 4604(E) | events=1 acts=1 | e.g. The Code on Wages, 2019 | PENDING
+- S.O. 3162(E) | events=1 acts=1 | e.g. The National Medical Commission Act, 201 | PENDING
+- S.O. 3262(E) | events=1 acts=1 | e.g. The National Medical Commission Act, 201 | PENDING
+- S.O. 3988(E) | events=1 acts=1 | e.g. The National Commission for Backward Cla | PENDING
+- S.O. 272(E) | events=1 acts=1 | e.g. The Indian Institute of Petroleum and En | PENDING
+- S.O. 149(E) | events=1 acts=1 | e.g. The Indian Institute of Management Act,  | PENDING
+- S.O. 767(E) | events=1 acts=1 | e.g. The Admiralty (Jurisdiction and Settleme | PENDING
+- S.O. 2928(E) | events=1 acts=1 | e.g. The Indian Institutes of Information Tec | PENDING
+- S.O. 3248(E) | events=1 acts=1 | e.g. The Footwear Design and Development Inst | PENDING
+- S.O. 4715(E) | events=1 acts=1 | e.g. The Human Immunodeficiency Virus and Acq | PENDING
+- G.S.R. 605 (E) | events=1 acts=1 | e.g. The Central Goods and Services Tax Act,  | PENDING
+- G.S.R. 658 (E) | events=1 acts=1 | e.g. The Central Goods and Services Tax Act,  | PENDING
+- S.O. 2129 (E) | events=1 acts=1 | e.g. The Central Goods and Services Tax Act,  | PENDING
+- G.S.R. 700 (E) | events=1 acts=1 | e.g. The Goods and Services Tax (Compensation | PENDING
+- G.S.R. 616(E) | events=1 acts=1 | e.g. The Union Territory Goods and Services T | PENDING
+- G.S.R. 701(E) | events=1 acts=1 | e.g. The Union Territory Goods and Services T | PENDING
