@@ -139,7 +139,17 @@ def run_partition(category, part_value, year, outdir, max_pages=1, max_downloads
     parsed = parse_grid(r.text)
     expected = parsed["expected"]
     ledger.upsert(pid, expected=expected or -1)
-    seen_ids, sha_to_id = set(), {}
+    seen_ids, sha_to_id, have_docs = set(), {}, set()
+    doc_file = pdir / "documents.jsonl"
+    if doc_file.exists():
+        import json as _J
+        for line in doc_file.read_text().splitlines():
+            try:
+                _g = _J.loads(line)["gazette_id"]
+                have_docs.add(_g)
+                seen_ids.add(_g)
+            except Exception:
+                pass
     # resume: never re-record rows from an earlier partial walk
     rec_file = pdir / "records.jsonl"
     if rec_file.exists():
@@ -163,7 +173,7 @@ def run_partition(category, part_value, year, outdir, max_pages=1, max_downloads
                             "query": {"category": category, "part_value": str(part_value), "year": str(year)},
                             "list_url": resp.url})
                 f.write(json.dumps(rec) + "\n")
-                if n_dl < max_downloads and rec["download_button"]:
+                if n_dl < max_downloads and rec["download_button"] and rec["gazette_id"] not in have_docs:
                     try:
                         pdf, viewer_url, pdf_url = download_row(
                             session, resp.url, resp.text, rec["download_button"])
