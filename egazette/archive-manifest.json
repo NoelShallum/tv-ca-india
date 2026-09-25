@@ -1,0 +1,39 @@
+{
+ "partition": "Extra Ordinary/9/2025",
+ "expected": 5917,
+ "documents": [
+  {
+   "partition": "Extra_Ordinary/9/2025",
+   "gazette_id": "CG-DL-E-31122025-268976",
+   "viewer_url": "https://egazette.gov.in/(S(1smuj4svmgiopibv2o1g45ii))/ViewPDF.aspx",
+   "pdf_url": "https://egazette.gov.in/WriteReadData/2025/268976.pdf",
+   "fetched_at": 1790295431.0703833,
+   "sha256": "6d8d5c10f0d078dde1519d8509b0e363dfb230a3780b2a0f8020b55ba1bfff0d",
+   "bytes": 946756,
+   "pages": 33,
+   "list_position": "1"
+  },
+  {
+   "partition": "Extra_Ordinary/9/2025",
+   "gazette_id": "CG-DL-E-31122025-268972",
+   "viewer_url": "https://egazette.gov.in/(S(1smuj4svmgiopibv2o1g45ii))/ViewPDF.aspx",
+   "pdf_url": "https://egazette.gov.in/WriteReadData/2025/268972.pdf",
+   "fetched_at": 1790295433.1160638,
+   "sha256": "973168c333b37803f503b86a26106bf7be9952f4ee08f5a65dd70ea3d9178c80",
+   "bytes": 467341,
+   "pages": 2,
+   "list_position": "2"
+  },
+  {
+   "partition": "Extra_Ordinary/9/2025",
+   "gazette_id": "CG-DL-E-31122025-268971",
+   "viewer_url": "https://egazette.gov.in/(S(1smuj4svmgiopibv2o1g45ii))/ViewPDF.aspx",
+   "pdf_url": "https://egazette.gov.in/WriteReadData/2025/268971.pdf",
+   "fetched_at": 1790295437.0200403,
+   "sha256": "36b7c58c66c791537c1b247cf04f9659c33126926683d0f417982883aa356108",
+   "bytes": 570464,
+   "pages": 2,
+   "list_position": "3"
+  }
+ ]
+}
