@@ -7,7 +7,7 @@
 - 13 of 2018 | NOT-IN-INVENTORY | wef=['2019-02-01'] | sections=1 | SEARCHBILL
 - 31 of 2018 | RECOVERED egazette/archive/recovery/31of2018/CGST-Amendment-2018.pdf (9pp, sha7372bf7a, via per-row viewer chain; portal shows legacy id 188986 only) | wef=['2017-07-01', '2019-02-01'] | sections=26 | SEARCHBILL
 - 23 of 2019 | NOT-IN-INVENTORY | wef=['2019-09-01', '2020-01-01', '2020-11-10'] | sections=21 | SEARCHBILL
-- 12 of 2020 | NOT-IN-INVENTORY | wef=['2020-05-18', '2020-06-30', '2021-01-01'] | sections=11 | SEARCHBILL
+- 12 of 2020 | RECOVERED egazette/archive/recovery/12of2020/Finance-Act-2020.pdf (87pp, sha2608fdf5, CG-DL-E-27032020-218938; Finance Act carries the CGST amendments) | wef=['2020-05-18', '2020-06-30', '2021-01-01'] | sections=11 | SEARCHBILL
 - 38 of 2020 | NOT-IN-INVENTORY | wef=['2020-03-31'] | sections=1 | SEARCHBILL
 - 13 of 2021 | NOT-IN-INVENTORY | wef=['2017-07-01', '2021-08-01', '2022-01-01'] | sections=12 | SEARCHBILL
 - 6 of 2022 | NOT-IN-INVENTORY | wef=['2019-02-01', '2022-07-05', '2022-10-01'] | sections=14 | SEARCHBILL
