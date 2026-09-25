@@ -36,3 +36,8 @@
 
 ## Polite rules (unchanged)
 - Single worker, random 0.8-1.8s delay (user asked 0.5-0.9s range; keep polite), session repair on failure, resume-safe ledger; HTTP 200 alone never marks a partition complete; resolve each row's viewer and validate distinct bytes (never bulk the first-row preview).
+
+## Bill/Assent/Act search (`SearchBill.aspx`, via `btnBill` POST, never direct GET)
+- URL pattern `SearchBill.aspx?id=<session-token>` (token varies; reach via SearchMenu `btnBill` POST).
+- Fields: `ddlreftype` (Select Reference Type, 8=Act, 9=Bill, 15=Assent), `txtRefNo` (Reference Number, optional), `txtKeyword` (textarea, Keywords, optional), `txtDateFrom`/`txtDateTo` (Notification issue range, optional, keypress-blocked date pickers), image buttons `ImgSubmitDetails`/`ImgResetDetails`, `btnBack`.
+- This is the act-specific gazette path (Strategy 3 amendments): query by Act reference no + keyword + date window.
