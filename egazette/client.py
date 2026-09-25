@@ -142,6 +142,27 @@ class EGazetteSession:
             m = re.search(r'<iframe[^>]*src="([^"]+)"', viewpdf_html, re.I)
         return urljoin(viewpdf_url, m.group(1)) if m else ""
 
+    def search_bill(self, keyword="", reftype="8", ref_no="", date_from="", date_to=""):
+        """Act-specific gazette search (Strategy 2 recovery path).
+
+        menu -> btnBill POST -> SearchBill.aspx?id=token -> ImgSubmitDetails.
+        reftype: 8=Act, 9=Bill, 15=Assent. Returns (response, n_buttons).
+        Result grid is gvGazetteList: same per-row viewer chain as directory.
+        Pilot: keyword Commercial Courts -> 2 gazettes (2018 amendment +
+        2016 principal, Part II-Section 1).
+        """
+        r = self.get("SearchMenu.aspx")
+        st = self.form_state(r.text)
+        rb = self.post(r.url, {**st, "__EVENTTARGET": "", "__EVENTARGUMENT": "",
+                               "btnBill": "Search by Bill / Assent / Act"})
+        st2 = self.form_state(rb.text)
+        d = {**st2, "__EVENTTARGET": "", "__EVENTARGUMENT": "", "__LASTFOCUS": "",
+             "ddlreftype": reftype, "txtRefNo": ref_no, "txtKeyword": keyword,
+             "txtDateFrom": date_from, "txtDateTo": date_to,
+             "ImgSubmitDetails.x": "10", "ImgSubmitDetails.y": "10"}
+        rs = self.post(rb.url, d)
+        return rs, len(re.findall(r"imgbtndownload", rs.text))
+
     def directory_search(self, category, part_value, year):
         """Run one GazetteDirectory partition; returns (response, n_download_buttons)."""
         r = self.get("GazetteDirectory.aspx")

@@ -47,3 +47,7 @@
 - Same-session `GET ViewPDF.aspx` returns viewer HTML with `<iframe id="framePDFDisplay" src="../WriteReadData/2026/276481.pdf">`.
 - Same-session `GET` of the iframe src returns `application/pdf` (pilot: 408,361 bytes, `%PDF` magic, sha256 `8d989295...`, Ministry of Petroleum and Natural Gas row).
 - Rules: resolve each row through its own POST -> ViewPDF -> iframe chain; never construct `WriteReadData/...` URLs from Gazette IDs; never reuse row 1's file for other rows; one pilot file only until partitioned enumeration with ledger.
+
+## Act search via client.search_bill() (verified 2026-09-25)
+- `search_bill(keyword, reftype=8, ...)` replays menu -> btnBill -> ImgSubmitDetails.
+- Pilot: keyword "Commercial Courts" -> Total No. of Gazettes: 2, both Ministry of Law and Justice / Legislative Department, Part II-Section 1: 21-Aug-2018 amendment record + 01-Jan-2016 principal record, same gvGazetteList viewer chain for downloads.
