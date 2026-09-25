@@ -76,8 +76,8 @@ class EGazetteSession:
         self.host = (host or HOST).rstrip("/")
         self.verify = verify or (str(CERT_BUNDLE) if CERT_BUNDLE.exists() else True)
         self.s = requests.Session()
-        self.s.headers.update({"User-Agent": "TVCA-Research/0.1 eGazette polite enumeration",
-            "Accept": "text/html,application/xhtml+xml", "Referer": "https://egazette.gov.in/"})
+        self.s.headers.update({"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) TVCA-Research/0.1",
+            "Accept": "text/html,application/xhtml+xml"})
         self.delay_min = delay_min
         self.delay_max = delay_max
         self.timeout = timeout
@@ -133,8 +133,8 @@ class EGazetteSession:
     def _repair(self):
         """Rebuild the session and re-bootstrap (new cookieless token)."""
         self.s = self.s.__class__()
-        self.s.headers.update({"User-Agent": "TVCA-Research/0.1 eGazette polite enumeration",
-            "Accept": "text/html,application/xhtml+xml", "Referer": "https://egazette.gov.in/"})
+        self.s.headers.update({"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) TVCA-Research/0.1",
+            "Accept": "text/html,application/xhtml+xml"})
         self.base_url = self.host + "/"
         self._wait()
         self._track_base(self.s.get(self.host + "/", timeout=self.timeout, verify=self.verify))
