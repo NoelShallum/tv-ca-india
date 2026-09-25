@@ -211,6 +211,17 @@ Act-specific gazette search from Python:
     s = EGazetteSession(); s.bootstrap()
     resp, n = s.search_bill(keyword="Commercial Courts")  # reftype 8=Act, 9=Bill, 15=Assent
 
+Amendment recovery runner (timeline -> worklist -> gazette PDFs):
+
+    python3 -m egazette.recover worklist --data-root runs/tvca-1 --act <uuid> --out egazette/MYACT_WORKLIST.md
+    python3 -m egazette.recover fetch --keyword "Finance Act 2025" --dry-run   # search only (also a health probe)
+    python3 -m egazette.recover fetch --keyword "Finance Act 2025" --match-date 29-Mar-2025 \
+        --tag 7of2025   # resolves the row's viewer chain, saves PDF + meta.json
+    python3 -m indiacode_scraper.coverage --data-root runs/tvca-1 --out coverage_out \
+        --recovery-root egazette/archive/recovery   # counts recovered PDFs as sourced
+
+Cross-act pull order: [`egazette/RECOVERY_QUEUE.md`](egazette/RECOVERY_QUEUE.md).
+
 Politeness: one worker at a time, random 0.5-1.8 s delays between requests,
 bounded retries with backoff, error-only logging. The eGazette download chain
 resolves each row through its own POST -> ViewPDF -> iframe viewer (never
