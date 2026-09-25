@@ -20,3 +20,5 @@
 - unknown of blank | NOT-IN-INVENTORY | wef=['2021-06-01', '2022-01-01'] | sections=7 | SEARCHBILL
 - Finding 2026-09-25: the 849-row India Code inventory holds principal acts only (3 amendment-titled rows in total), so 14/15 CGST amending instruments can only be recovered via eGazette SearchBill (Strategy 2/3), not by extending the Strategy-1 crawl.
 - Blank-cited timeline events are notification/order-class (removal-of-difficulty orders, J&K adaptation orders, commencement notifications), not Acts: recover via GazetteDirectory/RecentUploads partitions, not SearchBill.
+
+Sourcing policy (user direction 2026-09-25): India Code is the primary source for everything, including amendments (amendment acts, amendment lists, related-instrument tabs, notification items). eGazette portal pulling is PAUSED; the 13 recovered PDFs stay as evidence and the client/enumerate/recover code stays as fallback tooling. Remaining worklist items to be sourced from India Code first.
