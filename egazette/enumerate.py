@@ -94,7 +94,9 @@ def download_row(session, list_url, list_html, button, timeout=90):
     pdf_url = session.resolve_viewer_pdf_url(rv.text, rv.url)
     if not pdf_url:
         raise RuntimeError("viewer has no framePDFDisplay iframe")
-    rd = session.get(pdf_url)
+    # File server 406s HTML-Accept clients; request the bytes as PDF (verified).
+    rd = session.s.get(pdf_url, timeout=session.timeout, verify=session.verify,
+                       headers={"Accept": "application/pdf,*/*;q=0.8"})
     if not rd.content.startswith(b"%PDF"):
         raise RuntimeError(f"resolved URL did not return PDF: {pdf_url[:120]}")
     return rd.content, rv.url, pdf_url
