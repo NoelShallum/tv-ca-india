@@ -24,3 +24,4 @@
 _Recovery path for missing instruments: eGazette SearchBill by Act reference (mapped, piloted) + India Code amendment-act PDFs as the crawl reaches them._
 - Central Goods and Services Tax Act, 2017: 826 sections in timeline, 265 footnote events, 31 amending instruments, 9 gaps; as-of 2024-01-01 snapshot in _timelines (local artifact, git-ignored).
 - Capture audit CGST 2017: 831/831 items backed by stored blobs (application/json API payloads, sha-pinned), 0 missing; 265 footnote rows linked to the act.
+- As-of demo CGST 2017 (188 tracked sections; 265 events, 96.6% wef-dated; 113 insertions / 107 substitutions / 40 omissions): sections amended-so-far grows 5 (2017-07-01) -> 28 (2019-02-01) -> 47 (2021-01-01) -> 71 (2023-10-01) -> 85 (2025-04-01). Time-versioning signal verified end to end from footnotes alone.
