@@ -12,7 +12,7 @@
 - 13 of 2021 | RECOVERED egazette/archive/recovery/13of2021/Finance-Act-2021.pdf (191pp, sha7c3b703d; Finance Act 2021) | wef=['2017-07-01', '2021-08-01', '2022-01-01'] | sections=12 | SEARCHBILL
 - 6 of 2022 | RECOVERED egazette/archive/recovery/6of2022/Finance-Act-2022.pdf (147pp, shafd62df67; Finance Act 2022) | wef=['2019-02-01', '2022-07-05', '2022-10-01'] | sections=14 | SEARCHBILL
 - 30 of 2023 | RECOVERED egazette/archive/recovery/30of2023/CGST-Amendment-30of2023.pdf (3pp, shad6bb1672, CG-DL-E-18082023-248183; header declares NO. 30 OF 2023) | wef=['2023-10-01'] | sections=2 | SEARCHBILL
-- 48 of 2023 | RECOVERED egazette/archive/recovery/8of2023/Finance-Act-2023.pdf (105pp, sha47073290, CG-DL-E-31032023-244830; Finance Act 2023) | wef=['2023-12-28'] | sections=1 | SEARCHBILL
+- 48 of 2023 | IDENTIFIED (CGST Second Amendment: GSTAT appointment/age-limit changes to s.110, assent 28-12-2023) — assent gazette absent from SearchBill Act/number/title indexes; recover via GazetteDirectory Extra-Ordinary Part-II-Sec-1 Dec-2023 partition | wef=['2023-12-28'] | sections=1
 - 8 of 2023 | RECOVERED egazette/archive/recovery/8of2023/Finance-Act-2023.pdf (105pp, sha47073290, CG-DL-E-31032023-244830; Finance Act 2023) | wef=['2017-07-01', '2023-08-01', '2023-10-01'] | sections=22 | SEARCHBILL
 - 15 of 2024 | RECOVERED egazette/archive/recovery/15of2024/Finance-No2-2024.pdf (103pp, sha16bf85c2; header No. 15 of 2024) | wef=['2017-07-01', '2023-10-01', '2024-08-01', '2024-09-27', '2024-11-01'] | sections=35 | SEARCHBILL
 - 8 of 2024 | RECOVERED egazette/archive/recovery/8of2024/Finance-Act-2024.pdf (26pp, sha61c6ab89; header NO. 8 OF 2024) | wef=['2024-10-01', '2025-04-01'] | sections=3 | SEARCHBILL
