@@ -19,3 +19,4 @@
 - 7 of 2025 | NOT-IN-INVENTORY | wef=['2017-07-01', '2025-04-01'] | sections=3 | SEARCHBILL
 - unknown of blank | NOT-IN-INVENTORY | wef=['2021-06-01', '2022-01-01'] | sections=7 | SEARCHBILL
 - Finding 2026-09-25: the 849-row India Code inventory holds principal acts only (3 amendment-titled rows in total), so 14/15 CGST amending instruments can only be recovered via eGazette SearchBill (Strategy 2/3), not by extending the Strategy-1 crawl.
+- Blank-cited timeline events are notification/order-class (removal-of-difficulty orders, J&K adaptation orders, commencement notifications), not Acts: recover via GazetteDirectory/RecentUploads partitions, not SearchBill.

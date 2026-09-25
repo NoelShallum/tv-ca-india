@@ -51,3 +51,6 @@
 ## Act search via client.search_bill() (verified 2026-09-25)
 - `search_bill(keyword, reftype=8, ...)` replays menu -> btnBill -> ImgSubmitDetails.
 - Pilot: keyword "Commercial Courts" -> Total No. of Gazettes: 2, both Ministry of Law and Justice / Legislative Department, Part II-Section 1: 21-Aug-2018 amendment record + 01-Jan-2016 principal record, same gvGazetteList viewer chain for downloads.
+- `txtRefNo` takes a bare Act number (verified 2026-09-25: "30" returns Act-30 across years, 32 records, 3 pages; "31 of 2018" style fails). Walk pages via `__EVENTTARGET=<grid_id>`, `__EVENTARGUMENT=Page$N` (`enumerate.fetch_page`, verified on gvGazetteList).
+- `txtDateFrom`/`txtDateTo` are ignored server-side for SearchBill keyword queries (verified 2026-09-25: identical result sets across disjoint ranges).
+- Gap: Acts 30 and 48 of 2023 absent from Act search by number; same-title or assent-index Filing TBD (NOT a URL-construction license; resolve via directory partitions or alternate titles).

@@ -74,11 +74,17 @@ def _pager_arg(page_no):
     return f"Page${page_no}"
 
 
-def fetch_page(session, url, page_no):
-    """Walk to a pager page via __EVENTTARGET postback. Returns (response, parsed)."""
-    r = session.get(url) if page_no == 1 else None
-    # caller passes current page html for page 1; this helper handles page >= 2
-    return r
+def fetch_page(session, url, list_html, grid_id, page_no):
+    """Walk to pager page N via postback. Returns (response, parsed).
+
+    Verified 2026-09-25 on SearchBill gvGazetteList: POST current url with
+    __EVENTTARGET=<grid_id>, __EVENTARGUMENT="Page$<page_no>" using the
+    current page's form state. page_no must be >= 2.
+    """
+    st = session.form_state(list_html)
+    r = session.post(url, {**st, "__EVENTTARGET": grid_id,
+                           "__EVENTARGUMENT": f"Page${page_no}"})
+    return r, parse_grid(r.text)
 
 
 def download_row(session, list_url, list_html, button, timeout=90):
