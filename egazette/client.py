@@ -94,21 +94,50 @@ class EGazetteSession:
         return r
 
     def bootstrap(self):
-        self._wait()
-        return self._track_base(self.s.get(self.host + "/", timeout=self.timeout, verify=self.verify))
+        return self._request("get", self.host + "/", set_base=True)
 
     def get(self, path, **kw):
         from urllib.parse import urljoin
-        self._wait()
-        kw.setdefault("verify", self.verify)
-        return self._track_base(self.s.get(urljoin(self.base_url, path.lstrip("/")), timeout=self.timeout, **kw))
+        return self._request("get", urljoin(self.base_url, path.lstrip("/")), **kw)
 
     def post(self, path_or_url, data, **kw):
         from urllib.parse import urljoin
+        url = path_or_url if path_or_url.startswith("http") else urljoin(self.base_url, path_or_url.lstrip("/"))
+        return self._request("post", url, data=data, **kw)
+
+    def _request(self, method, url, set_base=False, _attempt=1, **kw):
+        """Polite request with bounded retries, backoff, and session repair.
+
+        3 attempts max; waits grow 2x/4x with jitter. On transport failure the
+        session is rebuilt and re-bootstrapped once (ASP.NET cookieless
+        sessions die silently). Verified need: GazetteDirectory reads time out
+        intermittently (2026-09-25) while SearchBill stays fast.
+        """
+        import requests as _rq
         self._wait()
         kw.setdefault("verify", self.verify)
-        url = path_or_url if path_or_url.startswith("http") else urljoin(self.base_url, path_or_url.lstrip("/"))
-        return self._track_base(self.s.post(url, data=data, timeout=self.timeout, **kw))
+        try:
+            if method == "get":
+                r = self.s.get(url, timeout=self.timeout, **kw)
+            else:
+                r = self.s.post(url, timeout=self.timeout, **kw)
+            return self._track_base(r)
+        except _rq.exceptions.RequestException as e:
+            if _attempt >= 3:
+                raise
+            if _attempt == 2 and not set_base:
+                self._repair()
+            time.sleep((2 ** _attempt) + random.uniform(0, 1))
+            return self._request(method, url, set_base=set_base, _attempt=_attempt + 1, **kw)
+
+    def _repair(self):
+        """Rebuild the session and re-bootstrap (new cookieless token)."""
+        self.s = self.s.__class__()
+        self.s.headers.update({"User-Agent": "TVCA-Research/0.1 eGazette polite enumeration",
+            "Accept": "text/html,application/xhtml+xml", "Referer": "https://egazette.gov.in/"})
+        self.base_url = self.host + "/"
+        self._wait()
+        self._track_base(self.s.get(self.host + "/", timeout=self.timeout, verify=self.verify))
 
     @staticmethod
     def form_state(html):
