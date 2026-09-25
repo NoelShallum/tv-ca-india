@@ -4,13 +4,13 @@
 - Status key: ARCHIVED = amending act already crawled; PENDING-CRAWL = in 849 inventory, not yet reached; SEARCHBILL = needs eGazette SearchBill by Act reference.
 
 - 26 of 2017 | The Central Goods and Services Tax (Extension to Jammu and K | wef=['2017-07-08'] | sections=2 | ARCHIVED
-- 13 of 2018 | NOT-IN-INVENTORY | wef=['2019-02-01'] | sections=1 | SEARCHBILL
+- 13 of 2018 | RECOVERED egazette/archive/recovery/13of2018/Finance-Act-2018.pdf (83pp, sha296402f9; Finance Act 2018) | wef=['2019-02-01'] | sections=1 | SEARCHBILL
 - 31 of 2018 | RECOVERED egazette/archive/recovery/31of2018/CGST-Amendment-2018.pdf (9pp, sha7372bf7a, via per-row viewer chain; portal shows legacy id 188986 only) | wef=['2017-07-01', '2019-02-01'] | sections=26 | SEARCHBILL
 - 23 of 2019 | RECOVERED egazette/archive/recovery/23of2019/Finance-No2-2019.pdf (114pp, sha90a4a84c; Finance (No.2) Act 2019) | wef=['2019-09-01', '2020-01-01', '2020-11-10'] | sections=21 | SEARCHBILL
 - 12 of 2020 | RECOVERED egazette/archive/recovery/12of2020/Finance-Act-2020.pdf (87pp, sha2608fdf5, CG-DL-E-27032020-218938; Finance Act carries the CGST amendments) | wef=['2020-05-18', '2020-06-30', '2021-01-01'] | sections=11 | SEARCHBILL
 - 38 of 2020 | RECOVERED egazette/archive/recovery/38of2020/Taxation-Relaxation-2020.pdf (40pp, sha6086b45d, CG-DL-E-29092020-222110) | wef=['2020-03-31'] | sections=1 | SEARCHBILL
-- 13 of 2021 | NOT-IN-INVENTORY | wef=['2017-07-01', '2021-08-01', '2022-01-01'] | sections=12 | SEARCHBILL
-- 6 of 2022 | NOT-IN-INVENTORY | wef=['2019-02-01', '2022-07-05', '2022-10-01'] | sections=14 | SEARCHBILL
+- 13 of 2021 | RECOVERED egazette/archive/recovery/13of2021/Finance-Act-2021.pdf (191pp, sha7c3b703d; Finance Act 2021) | wef=['2017-07-01', '2021-08-01', '2022-01-01'] | sections=12 | SEARCHBILL
+- 6 of 2022 | RECOVERED egazette/archive/recovery/6of2022/Finance-Act-2022.pdf (147pp, shafd62df67; Finance Act 2022) | wef=['2019-02-01', '2022-07-05', '2022-10-01'] | sections=14 | SEARCHBILL
 - 30 of 2023 | NOT-IN-INVENTORY | wef=['2023-10-01'] | sections=2 | SEARCHBILL
 - 48 of 2023 | RECOVERED egazette/archive/recovery/8of2023/CGST-Amendment-2023.pdf (3pp, shad6bb1672, CG-DL-E-18082023-248183) | wef=['2023-12-28'] | sections=1 | SEARCHBILL
 - 8 of 2023 | RECOVERED egazette/archive/recovery/8of2023/CGST-Amendment-2023.pdf (3pp, shad6bb1672, CG-DL-E-18082023-248183) | wef=['2017-07-01', '2023-08-01', '2023-10-01'] | sections=22 | SEARCHBILL
