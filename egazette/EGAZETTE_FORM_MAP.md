@@ -55,3 +55,4 @@
 - `txtDateFrom`/`txtDateTo` are ignored server-side for SearchBill keyword queries (verified 2026-09-25: identical result sets across disjoint ranges).
 - Gap: Acts 30 and 48 of 2023 absent from Act search by number; same-title or assent-index Filing TBD (NOT a URL-construction license; resolve via directory partitions or alternate titles).
 - Negative results (verified 2026-09-25): SearchBill Act index has no record for Act 48 of 2023 under number/title/assent queries — some recent assents need the GazetteDirectory path instead. Reftype 15 (Assent) + keyword returns empty grid for GST queries.
+- Open (2026-09-25): GazetteDirectory.aspx intermittently times out and once rendered without the ddlCategory form — server-side flakiness, not yet distinguished from session-state cause. Directory probes for the 48-of-2023 assent deferred to a healthy window; retry machinery now in client. Do NOT widen concurrency over this.
