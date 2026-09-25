@@ -228,3 +228,10 @@ resolves each row through its own POST -> ViewPDF -> iframe viewer (never
 constructed URLs, never bulk) and fetches PDF bytes with an explicit
 `Accept: application/pdf` (the file server 406s HTML-Accept clients).
 Field maps and verified examples: [`egazette/EGAZETTE_FORM_MAP.md`](egazette/EGAZETTE_FORM_MAP.md).
+
+Methodology map (source: Time-Versioned Central Acts methodology, 37pp):
+- Strategy 1 (India Code led): `indiacode_scraper/` crawl + `reconstruct` timelines + `coverage` audit.
+- Strategy 2 (Act-by-Act gazette discovery): `egazette/recover.py` worklist/fetch + per-row viewer chain.
+- Strategy 3 (enumerate tracks, index locally): `egazette/enumerate.py` partition ledger (no text filters).
+- Shared rules honored: zero results never prove absence; never merge same-named different-year Acts;
+  never bulk the first-row preview; never construct file URLs from displayed IDs; pinned TLS always.
