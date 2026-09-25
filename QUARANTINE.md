@@ -1,6 +1,6 @@
 # Quarantine — problem URLs, retried later
 
-Regenerated 2026-09-25 15:53. AUTO section is machine-written; Curated is hand-maintained.
+Regenerated 2026-09-25 16:20. AUTO section is machine-written; Curated is hand-maintained.
 
 <!-- AUTO -->
 ## India Code request failures (status != 200)
