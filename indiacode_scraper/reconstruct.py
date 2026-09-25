@@ -116,14 +116,23 @@ def build_timeline(db_path, act_uuid):
     return timeline
 
 
+def cited_year(cited):
+    m = re.search(r"of\s+(\d{4})", cited or "")
+    return int(m.group(1)) if m else None
+
+
 def as_of(timeline, cutoff_iso):
     out = {"as_of": cutoff_iso, "sections": {}}
+    cutoff_year = int(cutoff_iso.split("-")[0])
     for uuid, sec in timeline["sections"].items():
         eff = [e for e in sec["events"] if e["wef"] and e["wef"] <= cutoff_iso]
         undated = [e for e in sec["events"] if not e["wef"]]
+        likely = [e for e in undated
+                  if cited_year(e["cited_act"]) is not None and cited_year(e["cited_act"]) <= cutoff_year]
         out["sections"][uuid] = {
             "section_number": sec["section_number"], "title": sec["title"],
             "amendments_effective": len(eff),
+            "likely_effective_undated": len(likely),
             "has_undated_events": bool(undated),
             "snapshot_is_current_law_only": True,
             "warning": ("Pre-amendment wording not in snapshot; recover from cited "
