@@ -27,3 +27,7 @@
 - 7 of 2025 | acts=1 | section-events=3 | RECOVERED
 - 8 of 2024 | acts=1 | section-events=3 | RECOVERED
 - 48 of 2023 | acts=1 | section-events=3
+
+Identity notes (from footnote texts, 2026-09-25):
+- 34 of 2019 = J&K Reorganisation Act 2019 s. 95 (drops "except J&K" from short-title clauses, wef 31-10-2019). Low recovery value: 2 trivial events.
+- 8 of 2026 = decriminalisation-style amendments via s. 2 + Schedule (wef 01-07-2026) across Coastal Shipping 2025, NCAHP, Recycling of Ships (16 events). Candidate for next pull when host is healthy.
