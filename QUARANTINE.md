@@ -1,12 +1,19 @@
 # Quarantine — problem URLs, retried later
 
+> Active collection is IndiaCode-only. No eGazette scraping is running.
+> IndiaCode problem URLs live separately in the run data-root:
+> `output/tvca_runs/tvca-1/quarantine.jsonl` + `output/tvca_runs/tvca-1/QUARANTINE_INDIACODE.md`
+> (auto-exported from `run.sqlite3`: quarantine table + request_log status!=200 + acts FAILED).
+> eGazette notes below are paused / for later, not part of the active crawl.
+
+
 Regenerated 2026-09-25 16:20. AUTO section is machine-written; Curated is hand-maintained.
 
 <!-- AUTO -->
 ## India Code request failures (status != 200)
 none — all logged requests returned HTTP 200.
 
-## eGazette open partitions
+## eGazette open partitions (PAUSED — not scraping)
 - Extra_Ordinary/9/2025 | OPEN | pages=3 records=45 downloads=9 expected=5917 | no error | 2026-09-25 05:52
 <!-- /AUTO -->
 
