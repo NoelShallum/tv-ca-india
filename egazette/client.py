@@ -67,9 +67,9 @@ PART_SECTIONS = {
 SEARCH_MENU_BUTTONS = ["btneSearch", "btnGazetteID", "btnContentID", "btnMinistry",
     "btnCategory", "btnBill", "btnNotification", "btnPublish"]
 
-VIEWSTATE_RE = re.compile(r'name="__VIEWSTATE"\s+value="([^"]+)"')
-EVENTVALIDATION_RE = re.compile(r'name="__EVENTVALIDATION"\s+value="([^"]+)"')
-VIEWSTATEGEN_RE = re.compile(r'name="__VIEWSTATEGENERATOR"\s+value="([^"]+)"')
+VIEWSTATE_RE = re.compile(r'name="__VIEWSTATE"[^>]*value="([^"]*)"')
+EVENTVALIDATION_RE = re.compile(r'name="__EVENTVALIDATION"[^>]*value="([^"]*)"')
+VIEWSTATEGEN_RE = re.compile(r'name="__VIEWSTATEGENERATOR"[^>]*value="([^"]*)"')
 
 class EGazetteSession:
     def __init__(self, host=None, delay_min=0.8, delay_max=1.8, timeout=45, verify=None):
