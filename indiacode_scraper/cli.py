@@ -63,8 +63,21 @@ def run_acts(store, session, acts, force=False):
                          i, total, inv["title"][:60], res["linked_total"], res["linked_fetched"], res["items"], dt)
         except Exception as e:
             store.set_act_status(inv["uuid"], "FAILED", error=str(e)[:1000])
+            try:
+                store.add_quarantine(act_uuid=inv["uuid"], act_title=inv["title"],
+                                     url=f"act:{inv['uuid']}",
+                                     kind="act", error=str(e)[:500],
+                                     retry_hint="resume retries this act")
+            except Exception:
+                pass
             logging.error("[%d/%d] FAILED %s: %s", i, total, inv["title"][:60], e)
-    # summary
+    # quarantine sidecar (problem URLs kept separately for later) + summary
+    try:
+        q = store.export_quarantine()
+        logging.info("QUARANTINE rows=%d failures=%d failed_acts=%d -> %s",
+                     q["quarantine_rows"], q["request_failures"], q["failed_acts"], q["md"])
+    except Exception as e:
+        logging.warning("quarantine export failed: %s", e)
     stats = store.stats()
     (store.root / "SUMMARY.json").write_text(json.dumps(stats, indent=2))
     logging.info("SUMMARY %s", json.dumps(stats))
@@ -72,7 +85,7 @@ def run_acts(store, session, acts, force=False):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Time-versioned Central Acts scraper (Strategy 1)")
-    ap.add_argument("command", choices=["pilot", "crawl-all", "resume", "status"])
+    ap.add_argument("command", choices=["pilot", "crawl-all", "resume", "status", "quarantine"])
     ap.add_argument("--inventory", default="data/central_acts_inventory.csv")
     ap.add_argument("--data-root", default="runs/tvca-1")
     ap.add_argument("--delay-min", type=float, default=0.5)
@@ -105,6 +118,10 @@ def main(argv=None):
             acts = acts[:args.limit]
         # resume = skip DONE (default); crawl-all with --force redoes
         return run_acts(store, session, acts, force=args.force)
+    if args.command == "quarantine":
+        res = store.export_quarantine()
+        print(json.dumps(res, indent=2))
+        return res
     if args.command == "status":
         stats = store.stats()
         print(json.dumps(stats, indent=2))

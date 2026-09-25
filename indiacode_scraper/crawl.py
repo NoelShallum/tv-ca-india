@@ -90,6 +90,12 @@ def fetch_item_and_bundles(session, store, uuid, act_uuid, act_id, is_principal=
                 bsdata, bsmeta = session.get_json(bs_link)
             except Exception as e:
                 store.log_request("GET", bs_link, 0, 0, str(e))
+                try:
+                    store.add_quarantine(act_uuid=act_uuid, item_uuid=uuid, url=bs_link,
+                                         kind="bitstream-list", error=str(e)[:500],
+                                         retry_hint="resume re-fetches item bundles")
+                except Exception:
+                    pass
                 continue
             store.log_request("GET", bsmeta["url"], bsmeta["status"], bsmeta["bytes"])
             for bs in (bsdata.get("_embedded", {}).get("bitstreams", []) or []):
@@ -104,6 +110,12 @@ def fetch_item_and_bundles(session, store, uuid, act_uuid, act_id, is_principal=
                     blob, binfo = session.get_bytes(content_link)
                 except Exception as e:
                     store.log_request("GET", content_link, 0, 0, str(e))
+                    try:
+                        store.add_quarantine(act_uuid=act_uuid, item_uuid=uuid, url=content_link,
+                                             kind="blob-download", error=str(e)[:500],
+                                             retry_hint="resume re-downloads missing blobs")
+                    except Exception:
+                        pass
                     continue
                 store.log_request("GET", binfo["url"], binfo["status"], binfo["bytes"])
                 store.save_blob(blob, url=binfo["url"], mime=bs.get("mimeType") or "")
@@ -159,7 +171,17 @@ def crawl_act(session, store, inv_row):
     fetch_item_and_bundles(session, store, uuid, uuid, act_id, is_principal=True)
     linked, total = ([], 0)
     if act_id:
-        linked, total = discover_linked(session, store, act_id)
+        try:
+            linked, total = discover_linked(session, store, act_id)
+        except Exception as e:
+            try:
+                store.add_quarantine(act_uuid=uuid, act_title=inv_row.get("title", ""),
+                                     url=f"discover:dc.identifier.act_id:{act_id}",
+                                     kind="discover", error=str(e)[:500],
+                                     retry_hint="resume re-runs discover for this act")
+            except Exception:
+                pass
+            raise
     log.info("act %s linked_total=%d", inv_row.get("title", "")[:60], total)
     fetched = 0
     pdf_count = 0
@@ -172,6 +194,13 @@ def crawl_act(session, store, inv_row):
             fetched += 1
         except Exception as e:
             log.warning("linked fetch failed %s: %s", luuid, e)
+            try:
+                store.add_quarantine(act_uuid=uuid, act_title=inv_row.get("title", ""),
+                                     item_uuid=luuid, url=f"{API_BASE}/core/items/{luuid}",
+                                     kind="linked-item", error=str(e)[:500],
+                                     retry_hint="resume re-fetches this UUID")
+            except Exception:
+                pass
             continue
     # count blobs linked to this act via request log? simpler: count items + pdf blobs
     cur = store.db.execute("SELECT COUNT(*) c FROM items WHERE act_uuid=?", (uuid,))

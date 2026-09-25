@@ -64,6 +64,18 @@ CREATE TABLE IF NOT EXISTS footnotes (
   wef TEXT,
   ibid INTEGER
 );
+CREATE TABLE IF NOT EXISTS quarantine (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  ts REAL,
+  act_uuid TEXT,
+  act_title TEXT,
+  item_uuid TEXT,
+  url TEXT,
+  kind TEXT,
+  status INTEGER,
+  error TEXT,
+  retry_hint TEXT
+);
 """
 
 class Store:
@@ -168,6 +180,73 @@ class Store:
                  1 if e.get("ibid") else 0),
             )
         self.db.commit()
+
+    def add_quarantine(self, act_uuid="", act_title="", item_uuid="", url="", kind="",
+                       status=0, error="", retry_hint=""):
+        """Record a problem URL/UUID separately for later retry. Never raises."""
+        try:
+            import time as _time
+            # de-dupe: same url+item within last run
+            cur = self.db.execute(
+                "SELECT id FROM quarantine WHERE url=? AND COALESCE(item_uuid,'')=? LIMIT 1",
+                (url[:2000], item_uuid or ""))
+            if cur.fetchone() is None:
+                self.db.execute(
+                    """INSERT INTO quarantine
+                       (ts, act_uuid, act_title, item_uuid, url, kind, status, error, retry_hint)
+                       VALUES (?,?,?,?,?,?,?,?,?)""",
+                    (_time.time(), act_uuid or "", act_title or "", item_uuid or "",
+                     url[:2000], kind or "", status or 0, (error or "")[:2000],
+                     (retry_hint or "")[:500]))
+                self.db.commit()
+        except Exception:
+            pass
+
+    def export_quarantine(self, out_jsonl="quarantine.jsonl", out_md="QUARANTINE_INDIACODE.md"):
+        """Dump quarantine table + request failures + FAILED acts to data-root files."""
+        import json as _json, time as _time, datetime as _dt
+        # ensure table exists (old DBs)
+        self.db.execute("""CREATE TABLE IF NOT EXISTS quarantine (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, ts REAL, act_uuid TEXT, act_title TEXT,
+          item_uuid TEXT, url TEXT, kind TEXT, status INTEGER, error TEXT, retry_hint TEXT)""")
+        rows = [dict(r) for r in self.db.execute("SELECT * FROM quarantine ORDER BY id").fetchall()]
+        req_fail = [dict(r) for r in self.db.execute(
+            "SELECT ts, method, url, status, error FROM request_log WHERE status!=200 ORDER BY id DESC LIMIT 500").fetchall()]
+        failed_acts = [dict(r) for r in self.db.execute(
+            "SELECT uuid, title, act_id, error, updated_at FROM acts WHERE status='FAILED'").fetchall()]
+        # backfill request failures not already quarantined
+        for r in req_fail:
+            if not any(q["url"] == r["url"] for q in rows):
+                rows.append({"ts": r["ts"], "act_uuid": "", "act_title": "",
+                             "item_uuid": "", "url": r["url"], "kind": "request-log",
+                             "status": r["status"], "error": r.get("error", ""),
+                             "retry_hint": "retry with polite session"})
+        jp = self.root / out_jsonl
+        with open(jp, "w", encoding="utf-8") as f:
+            for r in rows:
+                f.write(_json.dumps(r, ensure_ascii=False) + "\n")
+        md = [f"# IndiaCode quarantine (auto-exported { _dt.datetime.now().strftime('%Y-%m-%d %H:%M')})",
+              f"",
+              f"- quarantine rows: {len(rows)} | request failures: {len(req_fail)} | FAILED acts: {len(failed_acts)}",
+              f"- source: run.sqlite3 (quarantine table + request_log status!=200 + acts FAILED)",
+              f"- retry later: `python3 -m indiacode_scraper.cli resume --data-root <root> --only <title>`",
+              f"  or re-run the quarantine export: `python3 -m indiacode_scraper.cli quarantine --data-root <root>`",
+              f""]
+        if rows:
+            md.append("## Problem URLs / items")
+            for r in rows[:500]:
+                md.append(f"- [{r.get('kind','')}] {r.get('url','')[:220]} | act={str(r.get('act_title',''))[:60]} "
+                          f"item={str(r.get('item_uuid',''))[:8]} status={r.get('status',0)} err={str(r.get('error',''))[:160]}")
+        else:
+            md.append("none — no failed IndiaCode downloads recorded yet.")
+        if failed_acts:
+            md.append("\n## FAILED acts")
+            for a in failed_acts:
+                md.append(f"- {a['title'][:80]} {a['uuid'][:8]} act_id={a['act_id']} err={str(a['error'])[:200]}")
+        mp = self.root / out_md
+        mp.write_text("\n".join(md), encoding="utf-8")
+        return {"quarantine_rows": len(rows), "request_failures": len(req_fail),
+                "failed_acts": len(failed_acts), "jsonl": str(jp), "md": str(mp)}
 
     def stats(self):
         out = {}
