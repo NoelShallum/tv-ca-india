@@ -22,3 +22,4 @@
 - Commercial Courts Act, 2015 as of 2020-01-01: 13/26 sections amended (Act 28 of 2018 w.e.f. 2018-05-03; Act 34 of 2019 postdates cutoff).
 
 _Recovery path for missing instruments: eGazette SearchBill by Act reference (mapped, piloted) + India Code amendment-act PDFs as the crawl reaches them._
+- Central Goods and Services Tax Act, 2017: 826 sections in timeline, 265 footnote events, 31 amending instruments, 9 gaps; as-of 2024-01-01 snapshot in _timelines (local artifact, git-ignored).
