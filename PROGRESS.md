@@ -5,3 +5,4 @@
 - Recent completions: The Goods and Services Tax (Compensation to States) Act, 201, The Central Goods and Services Tax Act, 2017, The Human Immunodeficiency Virus and Acquired Immune Deficie, The Footwear Design and Development Institute Act, 2017, The Indian Institutes of Information Technology (Public-priv
 - Coverage: 94 acts, 555 events, 42 distinct instruments; 33 sourced (13 via eGazette recovery), 33 missing.
 - Worker: detached single-worker `crawl-all`, data-root output/tvca_runs/tvca-1, resume-safe.
+- Velocity (2026-09-25 13:20): ~1310 req/h, ~8.8 acts/h; full-849 ETA roughly 4 days at current mix (single huge acts like CGST skew it).
