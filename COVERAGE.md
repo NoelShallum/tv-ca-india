@@ -1,8 +1,8 @@
 # Coverage statement (generated from run.sqlite3 + timelines)
 
-- Acts DONE in crawl: 77 of 849 | sections snapshotted: 4752 | footnote events: 240
-- Acts with >=1 amendment event: 69
-- Distinct amending instruments cited: 25 | already archived in crawl: 0 | pending eGazette/India-Code recovery: 28
+- Acts DONE in crawl: 83 of 849 | sections snapshotted: 4919 | footnote events: 255
+- Acts with >=1 amendment event: 72
+- Distinct amending instruments cited: 26 | already archived in crawl: 0 | pending eGazette/India-Code recovery: 29
 
 ## Most-cited instruments (recovery priority)
 
