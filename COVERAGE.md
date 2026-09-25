@@ -1,8 +1,8 @@
 # Coverage statement (generated from run.sqlite3 + timelines)
 
-- Acts DONE in crawl: 96 of 849 | sections snapshotted: 6643 items | footnote events: 593
+- Acts DONE in crawl: 106 of 849 | sections snapshotted: 7674 items | footnote events: 742
 - Acts with >=1 amendment event: 72
-- Distinct amending instruments cited: 46 | sourced: 41 (13 via eGazette recovery PDFs) | still missing: 38
+- Distinct amending instruments cited: 53 | sourced: 41 (13 via eGazette recovery PDFs) | still missing: 49
 
 ## Most-cited instruments (recovery priority)
 
