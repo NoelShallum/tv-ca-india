@@ -140,6 +140,15 @@ def run_partition(category, part_value, year, outdir, max_pages=1, max_downloads
     expected = parsed["expected"]
     ledger.upsert(pid, expected=expected or -1)
     seen_ids, sha_to_id = set(), {}
+    # resume: never re-record rows from an earlier partial walk
+    rec_file = pdir / "records.jsonl"
+    if rec_file.exists():
+        import json as _J
+        for line in rec_file.read_text().splitlines():
+            try:
+                seen_ids.add(_J.loads(line)["gazette_id"])
+            except Exception:
+                pass
     n_dl = 0
 
     def handle_page(resp, pageno):
